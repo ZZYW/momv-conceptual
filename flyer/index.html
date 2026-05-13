@@ -534,5 +534,127 @@
   }
 })();
 </script>
+
+<script>
+/* ── Drag / Resize widget — toggle with Shift+D+A ── */
+(function () {
+  const SCALE = 0.7418;
+  let active = false;
+  let panel, keys = {};
+
+  document.addEventListener('keydown', e => {
+    keys[e.key.toLowerCase()] = true;
+    if (keys['shift'] && keys['d'] && keys['a']) toggle();
+  });
+  document.addEventListener('keyup', e => { keys[e.key.toLowerCase()] = false; });
+
+  function toggle() {
+    active = !active;
+    if (active) enable(); else disable();
+  }
+
+  function enable() {
+    panel = document.createElement('div');
+    panel.id = '_pos-panel';
+    Object.assign(panel.style, {
+      position:'fixed', bottom:'12px', right:'12px', zIndex:9999,
+      background:'rgba(0,0,0,0.82)', color:'#0f0', fontFamily:'monospace',
+      fontSize:'11px', padding:'10px 12px', borderRadius:'6px',
+      whiteSpace:'pre', lineHeight:'1.6', maxHeight:'60vh', overflowY:'auto',
+      pointerEvents:'none',
+    });
+    document.body.appendChild(panel);
+
+    document.querySelectorAll('.diagram > .c').forEach(el => {
+      el.dataset._origOutline = el.style.outline || '';
+      el.style.outline = '1.5px dashed rgba(255,80,0,0.7)';
+      el.style.cursor = 'move';
+
+      const handle = document.createElement('div');
+      handle.className = '_resize-handle';
+      Object.assign(handle.style, {
+        position:'absolute', bottom:0, right:0, width:'10px', height:'10px',
+        background:'rgba(255,80,0,0.8)', cursor:'se-resize',
+      });
+      el.appendChild(handle);
+      el.addEventListener('mousedown', onMouseDown);
+    });
+
+    updatePanel();
+    document.body.style.userSelect = 'none';
+    showToast('Drag mode ON (Shift+D+A to exit)');
+  }
+
+  function disable() {
+    if (panel) { panel.remove(); panel = null; }
+    document.querySelectorAll('.diagram > .c').forEach(el => {
+      el.style.outline = el.dataset._origOutline || '';
+      el.style.cursor = '';
+      const h = el.querySelector('._resize-handle');
+      if (h) h.remove();
+      el.removeEventListener('mousedown', onMouseDown);
+    });
+    document.body.style.userSelect = '';
+    showToast('Drag mode OFF');
+  }
+
+  function onMouseDown(e) {
+    const el = this;
+    const handle = e.target.classList.contains('_resize-handle');
+    const startX = e.clientX, startY = e.clientY;
+    const startLeft = parseInt(el.style.left) || el.offsetLeft;
+    const startTop  = parseInt(el.style.top)  || el.offsetTop;
+    const startW    = el.offsetWidth;
+
+    function onMove(ev) {
+      const dx = (ev.clientX - startX) / SCALE;
+      const dy = (ev.clientY - startY) / SCALE;
+      if (handle) {
+        el.style.width = Math.round(startW + dx) + 'px';
+      } else {
+        el.style.left = Math.round(startLeft + dx) + 'px';
+        el.style.top  = Math.round(startTop  + dy) + 'px';
+      }
+      updatePanel();
+    }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  function updatePanel() {
+    if (!panel) return;
+    const lines = ['POSITIONS (copy ↓)', ''];
+    document.querySelectorAll('.diagram > .c').forEach(el => {
+      const cls = Array.from(el.classList).find(c => /^c\d+$/.test(c));
+      const t = parseInt(el.style.top)  ?? el.offsetTop;
+      const l = parseInt(el.style.left) ?? el.offsetLeft;
+      const w = el.offsetWidth;
+      lines.push(`.${cls}{top:${t}px;left:${l}px;width:${w}px}`);
+    });
+    panel.textContent = lines.join('\n');
+    const css = lines.slice(2).join('\n');
+    navigator.clipboard?.writeText(css).catch(() => {});
+  }
+
+  function showToast(msg) {
+    const t = document.createElement('div');
+    Object.assign(t.style, {
+      position:'fixed', top:'14px', left:'50%', transform:'translateX(-50%)',
+      background:'rgba(0,0,0,0.75)', color:'#fff', fontFamily:'monospace',
+      fontSize:'12px', padding:'6px 14px', borderRadius:'4px', zIndex:10000,
+      pointerEvents:'none',
+    });
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 2000);
+  }
+})();
+</script>
 </body>
 </html>
