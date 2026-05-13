@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mountain of Many Voices — poster</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --serif: "Helvetica Neue", Helvetica, sans-serif;
+        --sans: "Helvetica Neue", Helvetica, sans-serif;
+        --mono:
+          "JetBrains Mono", "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 20px;
+        background: #e8e8e8;
+        color: #111;
+        font-family: var(--sans);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* Letter frame: 8.5" × 11" at 96dpi = 816 × 1056px */
+      .letter-frame {
+        width: 816px;
+        height: 1056px;
+        border: 1px solid #111;
+        margin: 0 auto;
+        overflow: hidden;
+        position: relative;
+        background: #fff;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+      }
+
+      .page {
+        width: 1100px;
+        padding: 34px 50px 60px;
+        transform: scale(0.7418);
+        transform-origin: top left;
+      }
+
+      /* ── MASTHEAD ── */
+      .masthead {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        padding-bottom: 9px;
+        border-bottom: 1px solid #111;
+      }
+      .title-block {
+        display: flex;
+        align-items: baseline;
+        gap: 0;
+      }
+      .logo {
+        font-family: var(--serif);
+        font-size: 23px;
+        font-weight: 500;
+        line-height: 1;
+        letter-spacing: -1px;
+        margin-right: 16px;
+      }
+      .logo em {
+        font-style: italic;
+      }
+      .divider {
+        display: inline-block;
+        width: 1px;
+        height: 36px;
+        background: #111;
+        margin: 0 16px 6px;
+      }
+      .subtitle {
+        font-family: var(--sans);
+        font-size: 12.5px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding-bottom: 7px;
+      }
+      .byline {
+        font-family: var(--serif);
+        font-size: 13.5px;
+        padding-bottom: 8px;
+      }
+
+      /* ── TWO-COL INTRO ── */
+      .intro {
+        columns: 2;
+        column-gap: 44px;
+        margin-top: 14px;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 1.42;
+      }
+      .intro p {
+        margin: 0 0 7px;
+        break-inside: avoid;
+      }
+      .intro p::before {
+        content: "¶ ";
+      }
+      .intro em {
+        font-style: italic;
+      }
+
+      /* ── SECTION HEAD ── */
+      .section-h {
+        font-family: var(--sans);
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+        margin: 26px 0 0;
+      }
+
+      /* ── DIAGRAM ── */
+      .diagram {
+        position: relative;
+        margin-top: 6px;
+        /* tall enough for callouts not to clip */
+        height: 710px;
+      }
+
+      /* Ring SVG — centered */
+      .ring {
+        position: absolute;
+        left: 50%;
+        top: 100px;
+        transform: translateX(-50%);
+        width: 420px;
+        height: 420px;
+      }
+      .ring svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      /* Connector lines SVG — full diagram area overlay */
+      .connectors {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+      .connectors line,
+      .connectors path {
+        stroke: #b0b0b0;
+        stroke-width: 0.9;
+        fill: none;
+      }
+
+      /* Callout blocks */
+      .c {
+        position: absolute;
+      }
+      .c .lede {
+        font-family: var(--serif);
+        font-size: 12.5px;
+        font-weight: 700;
+        line-height: 1.38;
+        margin: 0;
+      }
+      .c .lede .badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 17px;
+        height: 17px;
+        border: 1px solid #111;
+        border-radius: 50%;
+        font-family: var(--sans);
+        font-size: 9.5px;
+        font-weight: 500;
+        line-height: 1;
+        margin-right: 4px;
+        flex-shrink: 0;
+        vertical-align: middle;
+        position: relative;
+        top: -1px;
+      }
+      .c .note {
+        display: block;
+        margin-top: 5px;
+        font-family: var(--mono);
+        font-size: 12px;
+        line-height: 1.45;
+        color: #444;
+      }
+
+      /* Individual positions — ring center ≈ (550, 355) within .diagram */
+      /* Ring radius ≈ 141px on screen (390/360 * 130 = 140.8) */
+      /* Nodes (diagram-relative, ring stage left=355, top=160):
+     scale = 390/360 = 1.0833
+     1 top    SVG(180, 50)  → page(550, 214)
+     2 NE     SVG(272, 88)  → page(650, 255)
+     3 E      SVG(310, 180) → page(691, 355)
+     4 SE     SVG(272, 272) → page(650, 454)
+     5 S      SVG(180, 310) → page(550, 496)
+     6 SW     SVG(88, 272)  → page(450, 454)
+     7 W      SVG(50, 180)  → page(409, 355)
+     8 NW     SVG(88, 88)   → page(450, 255)
+  */
+
+      /* ring: 420px, top:100, center=(500,310), radius≈152px
+     node1=(500,158) node2=(607,203) node3=(652,310) node4=(607,417)
+     node5=(500,462) node6=(393,417) node7=(348,310) node8=(393,203) */
+      .c1 { top:-36px;  left:562px; width:392px; }
+      .c2 { top:155px;  left:672px; width:262px; }
+      .c3 { top:234px;  left:723px; width:262px; }
+      .c4 { top:368px;  left:691px; width:286px; }
+      .c5 { top:541px;  left:456px; width:355px; }
+      .c6 { top:495px;  left:43px;  width:361px; }
+      .c7 { top:195px;  left:9px;   width:302px; }
+      .c8 { top:8px;    left:41px;  width:426px; }
+
+    </style>
+  </head>
+  <body>
+    <div class="letter-frame">
+      <div class="page">
+        <header class="masthead">
+          <div class="title-block">
+            <div class="logo">Mountain of Many Voices</div>
+            <div class="subtitle">
+              A research-creation artifact &nbsp;•&nbsp; On time, memory,
+              systems.
+            </div>
+          </div>
+          <div class="byline">zzyw — Zhenzhen Qi, Yang Wang.</div>
+        </header>
+
+        <section class="intro">
+          <p><em>Mountain of Many Voices</em> (MoMV) is a research-creation artifact.</p>
+          <p>The project concerns time, memory, systems, and configuration within cybernetic systems.</p>
+          <p>Cybernetics, especially second-order cybernetics, gives us a way to describe the condition in which we live: inside technological systems that we also observe, inhabit, and alter. If we say that software has become infrastructure — if by this we mean that it has become the ground, the soil that conditions what can exist, live, and grow — then we are saying more than that software, and to an extent the net, is where culture and, more fundamentally, thought happen. We are also saying that the ways these structures are designed and engineered — their forms and paradigms — become the limits of how rich, open, and generative thought and culture can be. The question of how anything — freedom, agency, the ability to alter the trajectory of the system we live with and within — can still happen becomes urgent.</p>
+          <p>LLMs intensify a familiar software paradigm: the transformation of human intention into system-readable input, and the return of system-generated possibilities as if they were neutral options. We try to approach this question through creation as a way of thinking, with making and coding as a kind of notebook. Through this process, we ask: what kind of design could preserve contingency — that is, the will and intention to alter the trajectories of systems — as produced by users, players, and all those who use and inhabit the system?</p>
+          <p>These questions have to do with time: with the temporal dimensions of systems, with what has been accumulated and produced, and with how we deal with them.</p>
+          <p>This leads us to think about a new kind of machine, one that treats &ldquo;memory&rdquo; differently. Memory is never inert, stored as a mere pile of bits or &ldquo;data,&rdquo; a quantitative accumulation that can be seen as discrete, queryable units like numbers.</p>
+          <p>Contrary to the popular notion, memory is not inert, standing still in the past as a relic. Memory becomes the ground for what comes next, and it is constantly reshaped by what comes next. Memory is identity; identity is working memory.</p>
+          <p>We ask: what if software had a more intimate and functional relationship with its memory? What if memory did not stand outside the operation of the system, but became the organizing procedure of the system?</p>
+          <p>MoMV is itself one way of asking that question through creation. It proposes a novel architecture that gives AI a different role in the system: a mediator, with authorial steering, a node inside the web of meaningfulness. Its output becomes meaningful only when it is taken up by writers and players within the evolving world of the work. AI here is neither the author of the work nor a replacement for human making. It functions as a mediator inside a world shaped by writers, players, and accumulated memory.</p>
+        </section>
+
+        <h2 class="section-h">§ How exactly does it work?</h2>
+
+        <div class="diagram">
+          <!-- CONNECTOR CURVES — quadratic bezier arcing organically away from ring -->
+          <svg
+            class="connectors"
+            viewBox="0 0 1000 710"
+            preserveAspectRatio="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <!-- c1 → node1(500,158) -->
+            <path d="M 562,28  Q 556,82  500,158" />
+            <!-- c2 → node2(607,203) -->
+            <path d="M 672,170 Q 644,162 607,203" />
+            <!-- c3 → node3(652,310) -->
+            <path d="M 723,250 Q 710,270 652,310" />
+            <!-- c4 → node4(607,417) -->
+            <path d="M 691,385 Q 678,392 607,417" />
+            <!-- c5 → node5(500,462) -->
+            <path d="M 462,541 Q 474,514 500,462" />
+            <!-- c6 → node6(393,417): right edge at 43+361=404 -->
+            <path d="M 404,510 Q 406,464 393,417" />
+            <!-- c7 → node7(348,310): right edge at 9+302=311 -->
+            <path d="M 311,210 Q 316,254 348,310" />
+            <!-- c8 → node8(393,203): right edge at 41+426=467 -->
+            <path d="M 467,20  Q 458,100 393,203" />
+          </svg>
+
+          <!-- RING -->
+          <div class="ring">
+            <svg viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern
+                  id="dot"
+                  x="0"
+                  y="0"
+                  width="3.5"
+                  height="3.5"
+                  patternUnits="userSpaceOnUse"
+                >
+                  <circle cx="1" cy="1" r="0.7" fill="#555" />
+                </pattern>
+              </defs>
+
+              <!-- main ring -->
+              <circle
+                cx="180"
+                cy="180"
+                r="130"
+                fill="none"
+                stroke="#111"
+                stroke-width="1.1"
+              />
+
+              <!-- flow arrows on ring (small filled triangles) -->
+              <!-- between 1→2 at ~22° -->
+              <polygon points="231,70 239,63 240,73" fill="#111" />
+              <!-- between 2→3 at ~67° -->
+              <polygon points="300,122 308,118 306,128" fill="#111" />
+              <!-- between 3→4 at ~112° -->
+              <polygon points="308,238 308,228 316,234" fill="#111" />
+              <!-- between 4→5 at ~157° -->
+              <polygon points="240,296 232,300 232,290" fill="#111" />
+              <!-- between 5→6 at ~202° -->
+              <polygon points="122,296 120,306 130,304" fill="#111" />
+              <!-- between 6→7 at ~247° -->
+              <polygon points="52,240 44,234 52,230" fill="#111" />
+              <!-- between 7→8 at ~292° -->
+              <polygon points="54,122 52,112 62,116" fill="#111" />
+              <!-- between 8→1 at ~337° -->
+              <polygon points="122,64 128,56 130,66" fill="#111" />
+
+              <!-- node 1 — stippled ball at top -->
+              <circle
+                cx="180"
+                cy="50"
+                r="19"
+                fill="url(#dot)"
+                stroke="#111"
+                stroke-width="1"
+              />
+
+              <!-- nodes 2-8 — open circles -->
+              <circle
+                cx="271.9"
+                cy="88.1"
+                r="10"
+                fill="#fff"
+                stroke="#111"
+                stroke-width="1"
+              />
+              <circle
+                cx="310"
+                cy="180"
+                r="10"
+                fill="#fff"
+                stroke="#111"
+                stroke-width="1"
+              />
+              <circle
+                cx="271.9"
+                cy="271.9"
+                r="10"
+                fill="#fff"
+                stroke="#111"
+                stroke-width="1"
+              />
+              <circle
+                cx="180"
+                cy="310"
+                r="10"
+                fill="#fff"
+                stroke="#111"
+                stroke-width="1"
+              />
+              <circle
+                cx="88.1"
+                cy="271.9"
+                r="10"
+                fill="#fff"
+                stroke="#111"
+                stroke-width="1"
+              />
+              <circle
+                cx="50"
+                cy="180"
+                r="10"
+                fill="#fff"
+                stroke="#111"
+                stroke-width="1"
+              />
+              <circle
+                cx="88.1"
+                cy="88.1"
+                r="10"
+                fill="#fff"
+                stroke="#111"
+                stroke-width="1"
+              />
+
+              <!-- node labels -->
+              <g
+                font-family="Helvetica,Arial,sans-serif"
+                font-size="10.5"
+                text-anchor="middle"
+                dominant-baseline="central"
+                fill="#111"
+              >
+                <text x="180" y="50">1</text>
+                <text x="271.9" y="88.1">2</text>
+                <text x="310" y="180">3</text>
+                <text x="271.9" y="271.9">4</text>
+                <text x="180" y="310">5</text>
+                <text x="88.1" y="271.9">6</text>
+                <text x="50" y="180">7</text>
+                <text x="88.1" y="88.1">8</text>
+              </g>
+            </svg>
+          </div>
+
+          <!-- CALLOUT 1 -->
+          <div class="c c1">
+            <p class="lede">
+              <span class="badge">1</span>Think of the &lsquo;core
+              algorithm&rsquo; of MoMV as an ecosystem: sky and ground in one
+              unity. The soil is its memory.
+            </p>
+            <span class="note"
+              >Technically, the memory is still implemented as a database. What
+              differs is how this database interfaces with the rest of the
+              system. The write operation is append-only: memory grows through
+              addition. Retrieval is usually relational. The system rarely
+              queries one isolated item cleanly: it tends to pull a node
+              together with other nodes connected to it.</span
+            >
+          </div>
+
+          <!-- CALLOUT 2 -->
+          <div class="c c2">
+            <p class="lede">
+              <span class="badge">2</span>One player enters the world, bringing
+              what he has with him.
+            </p>
+            <span class="note">That is, the world of MoMV&rsquo;s story.</span>
+          </div>
+
+          <!-- CALLOUT 3 -->
+          <div class="c c3">
+            <p class="lede">
+              <span class="badge">3</span>He sees the world through his own
+              eyes, through his own version of the world. Within that world, he
+              sees options, reads them.
+            </p>
+            <span class="note"
+              >He sees the world through his own world-view.</span
+            >
+          </div>
+
+          <!-- CALLOUT 4 -->
+          <div class="c c4">
+            <p class="lede">
+              <span class="badge">4</span>and makes a world-making input.
+            </p>
+            <span class="note"
+              >In MoMV, the options are often &ldquo;world-making&rdquo;
+              choices. They do not simply ask the player what he wants to do
+              inside an already established world. They allow the player to
+              affect what exists, what is true, and what kind of world this
+              story is becoming.</span
+            >
+          </div>
+
+          <!-- CALLOUT 5 -->
+          <div class="c c5">
+            <p class="lede">
+              <span class="badge">5</span>The system remembers this act and
+              absorbs it. In this sense, the world becomes a slightly different
+              world.
+            </p>
+            <span class="note"
+              >The player&rsquo;s input is inscribed into memory. All future
+              operations are then grounded in this memory as part of their
+              context. The LLM participates throughout the system&rsquo;s
+              operations, from processing player input to generating new options
+              and passages of the story.</span
+            >
+          </div>
+
+          <!-- CALLOUT 6 -->
+          <div class="c c6">
+            <p class="lede">
+              <span class="badge">6</span>The new system produces a different
+              weather: mood, pressure, direction.
+            </p>
+            <span class="note"
+              >This language is metaphorical. Technically, it means that future
+              generations are conditioned by memory. The system might read the
+              spirit of the story as moving toward nostalgia and elegy, and then
+              continue in that direction. Or it might read the same accumulated
+              material as a political act, and generate a counter-movement in
+              the plot. These readings depend on the &ldquo;interpretive
+              frames&rdquo; authored by the writers. These frames are part of
+              procedure of the system.</span
+            >
+          </div>
+
+          <!-- CALLOUT 7 -->
+          <div class="c c7">
+            <p class="lede">
+              <span class="badge">7</span>and what could be called new options
+              for the next player. When she arrives, she brings her own life and
+              her own game. There is now also a world shaped by previous
+              encounters between the world and others.
+            </p>
+            <span class="note"
+              >The difference is not merely mechanical, as if the story now
+              contains a few altered words or a slightly shifted plot. For the
+              next player, the world revealed by the story as a whole is
+              different, when we encounter a story or a system, we do not
+              perceive each part in isolation. We perceive a unity: a mood, an
+              inclination, a sense of what the world means and where it is
+              tending.</span
+            >
+          </div>
+
+          <!-- CALLOUT 8 -->
+          <div class="c c8">
+            <p class="lede">
+              <span class="badge">8</span>She then acts. The result of her act
+              is already possible only because the world exists as the outcome
+              of previous encounters. She leaves with both herself and the story
+              changed.
+            </p>
+            <span class="note"
+              >The system is altered mechanically through input and memory
+              updates. It is also altered meaningfully, because the story-world
+              has changed in how it can be encountered, interpreted, and
+              continued. The player also leaves changed, as we are always shaped
+              and reshaped by the narratives we pass through.</span
+            >
+          </div>
+        </div>
+        <!-- /diagram -->
+
+        <div style="
+          position:absolute;
+          bottom:34px;
+          right:50px;
+          font-family:var(--mono);
+          font-size:10px;
+          color:#555;
+          text-align:right;
+          line-height:1.6;
+        ">
+          https://zzyw.org/<br>hi@zzyw.org
+        </div>
+      </div>
+      <!-- /page -->
+    </div>
+    <!-- /letter-frame -->
+
+
+  </body>
+</html>
