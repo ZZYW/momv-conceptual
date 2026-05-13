@@ -19,29 +19,29 @@ hi@zzyw.org
 
 The project concerns time, memory, systems, and configuration within cybernetic systems.
 
-Cybernetics, especially second-order cybernetics, gives us a way to describe the condition in which we live: inside technological systems that we also observe, inhabit, and alter. If we say that software has become infrastructure — if by this we mean that it has become the ground, the soil that conditions what can exist, live, and grow — then we are saying more than that software, and to an extent the net, is where culture and, more fundamentally, thought happen. We are also saying that the ways these structures are designed and engineered — their forms and paradigms — become the limits of how rich, open, and generative thought and culture can be. The question of how anything — freedom, agency, the ability to alter the trajectory of the system we live with and within — can still happen becomes urgent.
+Cybernetics, especially second-order cybernetics, gives us a way to describe the condition in which we live: inside technological systems that we also observe, inhabit, and alter. If we say that software has become infrastructure — if by this we mean that it has become the ground, the soil that conditions what can exist, live, and grow — then we are saying that software, and to an extent the Net, is where culture and, more fundamentally, thought happen. We are also saying that the ways these structures are designed and engineered — their forms and paradigms — become the limits of how rich, open, and generative thought and culture can be. The question of how anything — freedom, agency, creativity — can still happen, becomes urgent.
 
-LLMs intensify a familiar software paradigm: the transformation of human intention into system-readable input, and the return of system-generated possibilities as if they were neutral options. We try to approach this question through creation as a way of thinking, with making and coding as a kind of notebook. Through this process, we ask: what kind of design could preserve contingency — that is, the will and intention to alter the trajectories of systems — as produced by users, players, and all those who use and inhabit the system?
+LLMs intensify a familiar software paradigm: the transformation of human intention into standing-still, system-readable input, and the return of system-generated possibilities as if they were neutral options. We try to approach this question through creation as a way of thinking, with making and coding as a kind of notebook. Through this process, we ask: what kind of design could preserve contingency — that is, the will and intention to alter the shape and the trajectories of the system we inhabit — as produced by players, "users", and really, all those who encounter and inhabit the system?
 
 These questions have to do with time: with the temporal dimensions of systems, with what has been accumulated and produced, and with how we deal with them.
 
 This leads us to think about a new kind of machine, one that treats "memory" differently. Memory is never inert, stored as a mere pile of bits or "data," a quantitative accumulation that can be seen as discrete, queryable units like numbers.
 
-Contrary to the popular notion, memory is not inert, standing still in the past as a relic. Memory becomes the ground for what comes next, and it is constantly reshaped by what comes next. Memory is identity; identity is working memory.
+Contrary to this popular notion, memory is not standing still in the past as a relic. Memory is the ground for what comes next, and it is constantly reshaped by the now. Memory is identity; identity is working memory.
 
-We ask: what if software had a more intimate and functional relationship with its memory? What if memory did not stand outside the operation of the system, but became the organizing procedure of the system?
+We ask: what if software had a more intimate and foundational relation with its memory? What if memory did not stand outside the moving-operation of the system, but became part of the organizing procedures?
 
-MoMV is itself one way of asking that question through creation. It proposes a novel architecture that gives AI a different role in the system: a mediator, with authorial steering, a node inside the web of meaningfulness. Its output becomes meaningful only when it is taken up by writers and players within the evolving world of the work. AI here is neither the author of the work nor a replacement for human making. It functions as a mediator inside a world shaped by writers, players, and accumulated memory.
+MoMV is itself one way of asking that question through creation. It proposes a novel architecture that gives AI a different role in the system: a mediator, with authorial steering, a node inside the web of meaningfulness. Its output becomes meaningful only when it is taken up by us who think within the evolving world of the work. AI here is neither the author of the work nor a replacement for human making. It functions as a mediator inside a living world, a node that belongs to a network.
 
 [CALLOUT 1]
-Think of the 'core algorithm' of MoMV as an ecosystem: sky and ground in one unity. The soil is its memory.
+Think of the 'core algorithm' of MoMV as an ecosystem: sky and earth in one unity. The soil is its memory.
 
 Technically, the memory is still implemented as a database. What differs is how this database interfaces with the rest of the system. The write operation is append-only: memory grows through addition. Retrieval is usually relational. The system rarely queries one isolated item cleanly: it tends to pull a node together with other nodes connected to it.
 
 [CALLOUT 2]
 One player enters the world, bringing what he has with him.
 
-That is, the world of MoMV's story.
+When he see the world of MoMV, he sees with them the way he _understands_. This happens pre-technical-interaction.
 
 [CALLOUT 3]
 He sees the world through his own eyes, through his own version of the world. Within that world, he sees options, reads them.
