@@ -41,7 +41,7 @@ Technically, the memory is still implemented as a database. What differs is how 
 [CALLOUT 2]
 One player enters the world, bringing what he has with him.
 
-When he see the world of MoMV, he sees with them the way he _understands_. This happens pre-technical-interaction.
+He enters MoMv through his own understanding, before any technical interaction.
 
 [CALLOUT 3]
 He sees the world through his own eyes, through his own version of the world. Within that world, he sees options, reads them.
