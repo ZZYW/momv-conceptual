@@ -58,6 +58,26 @@
           width: 8.5in;
           height: 11in;
         }
+        .return-to-game { display: none !important; }
+      }
+
+      .return-to-game {
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        z-index: 9998;
+        font-family: var(--mono);
+        font-size: 12px;
+        color: #111;
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid #111;
+        padding: 6px 10px;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .return-to-game:hover {
+        background: #111;
+        color: #fff;
       }
 
       /* ── MASTHEAD ── */
@@ -236,6 +256,7 @@
     </style>
   </head>
   <body>
+    <a class="return-to-game" href="/" onclick="if(window.history.length>1){history.back();return false;}">← return to game</a>
     <div class="letter-frame">
       <div class="page">
         <header class="masthead">
